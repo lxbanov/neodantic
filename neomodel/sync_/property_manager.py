@@ -1,4 +1,5 @@
 import types
+from pydantic import BaseModel, ConfigDict
 
 from neomodel.exceptions import RequiredProperty
 from neomodel.properties import AliasProperty, Property
@@ -10,13 +11,16 @@ def display_for(key):
 
     return display_choice
 
-
-class PropertyManager:
+class PropertyManager(BaseModel):
     """
     Common methods for handling properties on node and relationship objects.
     """
+    
+    model_config = ConfigDict(extra='allow')
 
     def __init__(self, **kwargs):
+        # To initialize the BaseModel correctly
+        super().__init__(**kwargs)
         properties = getattr(self, "__all_properties__", None)
         if properties is None:
             properties = self.defined_properties(rels=False, aliases=False).items()
@@ -119,8 +123,10 @@ class PropertyManager:
     @classmethod
     def defined_properties(cls, aliases=True, properties=True, rels=True):
         from neomodel.sync_.relationship_manager import RelationshipDefinition
+        from neomodel.sync_.core import Property
 
         props = {}
+
         for baseclass in reversed(cls.__mro__):
             props.update(
                 dict(
@@ -135,4 +141,14 @@ class PropertyManager:
                     or (rels and isinstance(property, RelationshipDefinition))
                 )
             )
+
+            if issubclass(baseclass, BaseModel):
+                for key, field in baseclass.model_fields.items():
+                    if isinstance(field.default, RelationshipDefinition) and rels:
+                        props[key] = field.default
+                    if isinstance(field.default, Property) and properties:
+                        props[key] = field.default
+                    if isinstance(field.default, AliasProperty) and aliases:
+                        props[key] = field.default
+                        
         return props

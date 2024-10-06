@@ -392,7 +392,10 @@ class RelationshipManager(object):
         return self._new_traversal().__getitem__(key)
 
 
-class RelationshipDefinition:
+class RelationshipDefinition(object):
+    def __new__(*args, **kwargs) -> type[RelationshipManager]:
+        return super().__new__(RelationshipManager)
+
     def __init__(
         self,
         relation_type,

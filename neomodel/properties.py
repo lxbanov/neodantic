@@ -2,10 +2,12 @@ import functools
 import json
 import re
 import sys
+from typing import Type
 import uuid
 from datetime import date, datetime
 
 import neo4j.time
+from pydantic import Field
 import pytz
 
 from neomodel import config
@@ -100,6 +102,7 @@ class Property:
     """
 
     form_field_class = "CharField"
+    python_type: type = None
 
     # pylint:disable=unused-argument
     def __init__(
@@ -191,7 +194,7 @@ class RegexProperty(NormalizedProperty):
     """
 
     form_field_class = "RegexField"
-
+    python_type: type[str] = str
     expression = None
 
     def __init__(self, expression=None, **kwargs):
@@ -220,6 +223,7 @@ class EmailProperty(RegexProperty):
 
     form_field_class = "EmailField"
     expression = r"[^@]+@[^@]+\.[^@]+"
+    python_type: type[str] = str
 
 
 class StringProperty(NormalizedProperty):
@@ -233,6 +237,7 @@ class StringProperty(NormalizedProperty):
     :param max_length: The maximum non-zero length that this attribute can be
     :type max_length: int
     """
+    python_type: type[str] = str
 
     def __init__(self, choices=None, max_length=None, **kwargs):
         if max_length is not None:
@@ -281,6 +286,7 @@ class IntegerProperty(Property):
     """
 
     form_field_class = "IntegerField"
+    python_type: type[int] = int
 
     @validator
     def inflate(self, value):
@@ -298,6 +304,7 @@ class ArrayProperty(Property):
     """
     Stores a list of items
     """
+    python_type: type[list] = list
 
     def __init__(self, base_property=None, **kwargs):
         """
@@ -354,6 +361,7 @@ class FloatProperty(Property):
     """
 
     form_field_class = "FloatField"
+    python_type: type[float] = float
 
     @validator
     def inflate(self, value):
@@ -373,7 +381,7 @@ class BooleanProperty(Property):
     """
 
     form_field_class = "BooleanField"
-
+    python_type: type[bool] = bool
     @validator
     def inflate(self, value):
         return bool(value)
@@ -392,7 +400,7 @@ class DateProperty(Property):
     """
 
     form_field_class = "DateField"
-
+    python_type: type[date] = date
     @validator
     def inflate(self, value):
         if isinstance(value, neo4j.time.DateTime):
@@ -421,6 +429,7 @@ class DateTimeFormatProperty(Property):
     """
 
     form_field_class = "DateTimeFormatField"
+    python_type: type[datetime] = datetime
 
     def __init__(self, default_now=False, format="%Y-%m-%d", **kwargs):
         if default_now:
@@ -452,6 +461,7 @@ class DateTimeProperty(Property):
     """
 
     form_field_class = "DateTimeField"
+    python_type: type[datetime] = datetime
 
     def __init__(self, default_now=False, **kwargs):
         if default_now:
@@ -501,7 +511,7 @@ class DateTimeNeo4jFormatProperty(Property):
     """
 
     form_field_class = "DateTimeNeo4jFormatField"
-
+    python_type: type[datetime] = datetime
     def __init__(self, default_now=False, **kwargs):
         if default_now:
             if "default" in kwargs:
@@ -529,6 +539,8 @@ class JSONProperty(Property):
     The structure will be inflated when a node is retrieved.
     """
 
+    python_type: type[dict] = dict
+
     def __init__(self, *args, **kwargs):
         super().__init__(*args, **kwargs)
 
@@ -545,6 +557,7 @@ class AliasProperty(property, Property):
     """
     Alias another existing property
     """
+    python_type: type[object] = object
 
     def __init__(self, to=None):
         """
@@ -579,6 +592,7 @@ class UniqueIdProperty(Property):
     """
     A unique identifier, a randomly generated uid (uuid4) with a unique index
     """
+    python_type: type[str] = str
 
     def __init__(self, **kwargs):
         for item in ["required", "unique_index", "index", "default"]:

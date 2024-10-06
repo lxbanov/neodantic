@@ -1,15 +1,26 @@
+from typing import ClassVar
 from neomodel.hooks import hooks
 from neomodel.properties import Property
 from neomodel.sync_.core import db
 from neomodel.sync_.property_manager import PropertyManager
+from pydantic._internal._model_construction import ModelMetaclass
 
 ELEMENT_ID_MIGRATION_NOTICE = "id is deprecated in Neo4j version 5, please migrate to element_id. If you use the id in a Cypher query, replace id() by elementId()."
 
+class RelationshipMeta(ModelMetaclass):
+    def __new__(mcs, name, bases, namespace):
+        namespace['__module__'] = 'neomodel.sync_'
+        if '__annotations__' not in namespace:
+            namespace['__annotations__'] = {}
+        for key, value in namespace.items():
+            if isinstance(value, Property):
+                namespace['__annotations__'][key] = value.python_type
+            else:
+                namespace['__annotations__'][key] = ClassVar
 
-class RelationshipMeta(type):
-    def __new__(mcs, name, bases, dct):
-        inst = super().__new__(mcs, name, bases, dct)
-        for key, value in dct.items():
+        inst = super().__new__(mcs, name, bases, namespace)
+        
+        for key, value in namespace.items():
             if issubclass(value.__class__, Property):
                 if key == "source" or key == "target":
                     raise ValueError(

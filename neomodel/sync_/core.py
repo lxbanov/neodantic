@@ -9,7 +9,7 @@ from asyncio import iscoroutinefunction
 from functools import wraps
 from itertools import combinations
 from threading import local
-from typing import Any, Optional, Sequence
+from typing import Any, ClassVar, Optional, Sequence, dataclass_transform
 from urllib.parse import quote, unquote, urlparse
 
 from neo4j import (
@@ -24,6 +24,7 @@ from neo4j import (
 from neo4j.api import Bookmarks
 from neo4j.exceptions import ClientError, ServiceUnavailable, SessionExpired
 from neo4j.graph import Node, Path, Relationship
+from zmq import has
 
 from neomodel import config
 from neomodel._async_compat.util import Util
@@ -1241,13 +1242,39 @@ class ImpersonationHandler:
 
         return wrapper
 
+from pydantic import BaseModel
+from pydantic._internal._model_construction import ModelMetaclass  
 
-class NodeMeta(type):
-    def __new__(mcs, name, bases, namespace):
+class NodeMeta(ModelMetaclass):
+    def __new__(mcs, name, bases, namespace) -> type[BaseModel]:
+        do_not_check_relationship_definition = False
+        try:
+            from neomodel.sync_.relationship_manager import RelationshipDefinition
+        except ImportError:
+            do_not_check_relationship_definition = True
+            
         namespace["DoesNotExist"] = type(name + "DoesNotExist", (DoesNotExist,), {})
+        
+        namespace['__module__'] = 'neomodel.sync_'
+        if '__annotations__' not in namespace:
+            namespace['__annotations__'] = {}
+        for key, value in namespace.items():
+            if key.startswith("_"):
+                continue
+            if isinstance(value, Property):
+                namespace['__annotations__'][key] = value.python_type
+            else:
+                if not do_not_check_relationship_definition:
+                    if isinstance(value, RelationshipDefinition):
+                        namespace['__annotations__'][key] = Any
+                    else:
+                        namespace['__annotations__'][key] = ClassVar
+                else:
+                    namespace['__annotations__'][key] = ClassVar
+        
         cls = super().__new__(mcs, name, bases, namespace)
         cls.DoesNotExist._model_class = cls
-
+        
         if hasattr(cls, "__abstract_node__"):
             delattr(cls, "__abstract_node__")
         else:
@@ -1296,7 +1323,6 @@ class NodeMeta(type):
 
             cls.__label__ = namespace.get("__label__", name)
             cls.__optional_labels__ = namespace.get("__optional_labels__", [])
-
             build_class_registry(cls)
 
         return cls
@@ -1336,8 +1362,7 @@ def build_class_registry(cls):
 
 NodeBase = NodeMeta("NodeBase", (PropertyManager,), {"__abstract_node__": True})
 
-
-class StructuredNode(NodeBase):
+class StructuredNode(NodeBase, BaseModel):
     """
     Base class for all node definitions to inherit from.
 
@@ -1352,13 +1377,13 @@ class StructuredNode(NodeBase):
     # magic methods
 
     def __init__(self, *args, **kwargs):
+        super().__init__(*args, **kwargs)
         if "deleted" in kwargs:
             raise ValueError("deleted property is reserved for neomodel")
 
         for key, val in self.__all_relationships__:
-            self.__dict__[key] = val.build_manager(self, key)
+            setattr(self, key, val.build_manager(self, key))
 
-        super().__init__(*args, **kwargs)
 
     def __eq__(self, other: StructuredNode | Any) -> bool:
         """
@@ -1508,7 +1533,6 @@ class StructuredNode(NodeBase):
         lazy = kwargs.get("lazy", False)
         # create mapped query
         query = f"CREATE (n:{':'.join(cls.inherited_labels())} $create_params)"
-
         # close query
         if lazy:
             query += f" RETURN {db.get_id_method()}(n)"
@@ -1516,9 +1540,11 @@ class StructuredNode(NodeBase):
             query += " RETURN n"
 
         results = []
+        print(cls, props)
         for item in [
             cls.deflate(p, obj=_UnsavedNode(), skip_empty=True) for p in props
         ]:
+            print(item)
             node, _ = db.cypher_query(query, {"create_params": item})
             results.extend(node[0])
 
