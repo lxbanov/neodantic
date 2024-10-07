@@ -1,15 +1,12 @@
 [project]
-name = "neomodel"
+name = "neomodantic"
 authors = [
-    {name = "Robin Edwards", email = "robin.ge@gmail.com"},
+    {name = "Aleksandr Lobanov", email = "aleksandr.lobanov.official@gmail.com"}
 ]
-maintainers = [
-    {name = "Marius Conjeaud", email = "marius.conjeaud@outlook.com"},
-    {name = "Athanasios Anastasiou", email = "athanastasiou@gmail.com"},
-]
-description = "An object mapper for the neo4j graph database."
+maintainers = []
+description = "An object mapper for the neo4j graph database with pydantic support."
 readme = "README.md"
-keywords = ["graph", "neo4j", "ORM", "OGM", "mapper"]
+keywords = ["graph", "neo4j", "ORM", "OGM", "mapper", "pydantic"]
 license = {text = "MIT"}
 classifiers = [
     "Development Status :: 5 - Production/Stable",
@@ -23,14 +20,15 @@ classifiers = [
 ]
 dependencies = [
     "neo4j~=5.19.0",
+    "pydantic>=2.0.0",
 ]
 requires-python = ">=3.7"
 dynamic = ["version"]
 
 [project.urls]
-documentation = "https://neomodel.readthedocs.io/en/latest/"
-repository = "http://github.com/neo4j-contrib/neomodel"
-changelog = "https://github.com/neo4j-contrib/neomodel/releases"
+documentation = "https://lxbanov.github.io/neomodantic/"
+repository = "http://github.com/lxbanov/neomodantic"
+changelog = "https://github.com/lxbanov/neomodantic/releases"
 
 [project.optional-dependencies]
 dev = [
@@ -51,7 +49,7 @@ requires = ["setuptools>=68"]
 build-backend = "setuptools.build_meta"
 
 [tool.setuptools.dynamic]
-version = {attr = "neomodel._version.__version__"}
+version = {attr = "neomodantic._version.__version__"}
 
 [tool.setuptools.packages.find]
 where = ["./"]
@@ -62,7 +60,7 @@ testpaths = "test"
 
 [tool.isort]
 profile = 'black'
-src_paths = ['neomodel','test']
+src_paths = ['neomodantic','test']
 
 [tool.pylint.'MESSAGES CONTROL']
 disable = 'missing-module-docstring,redefined-builtin,missing-class-docstring,missing-function-docstring,consider-using-f-string,line-too-long'
@@ -73,9 +71,3 @@ good-names = 'i,j,k,ex,_,e,fn,x,y,z,id,db,q'
 [tool.pylint.'DESIGN']
 max-attributes = 10
 max-args = 8
-
-[project.scripts]
-neomodel_install_labels = "neomodel.scripts.neomodel_install_labels:main"
-neomodel_remove_labels = "neomodel.scripts.neomodel_remove_labels:main"
-neomodel_inspect_database = "neomodel.scripts.neomodel_inspect_database:main"
-neomodel_generate_diagram = "neomodel.scripts.neomodel_generate_diagram:main"

@@ -1,7 +1,7 @@
 import pickle
 from test._async_compat import mark_async_test
 
-from neomodel import AsyncStructuredNode, DoesNotExist, StringProperty
+from neomodantic import AsyncStructuredNode, DoesNotExist, StringProperty
 
 
 class EPerson(AsyncStructuredNode):

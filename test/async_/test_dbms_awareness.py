@@ -2,8 +2,8 @@ from test._async_compat import mark_async_test
 
 import pytest
 
-from neomodel import adb
-from neomodel.util import version_tag_to_integer
+from neomodantic import adb
+from neomodantic.util import version_tag_to_integer
 
 
 @mark_async_test

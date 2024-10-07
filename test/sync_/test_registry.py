@@ -2,7 +2,7 @@ from test._async_compat import mark_sync_test
 
 from pytest import raises, skip
 
-from neomodel import (
+from neomodantic import (
     DateProperty,
     IntegerProperty,
     RelationshipTo,
@@ -12,7 +12,7 @@ from neomodel import (
     config,
     db,
 )
-from neomodel.exceptions import (
+from neomodantic.exceptions import (
     NodeClassAlreadyDefined,
     NodeClassNotDefined,
     RelationshipClassRedefined,

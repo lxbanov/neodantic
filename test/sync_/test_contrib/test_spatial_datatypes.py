@@ -11,9 +11,9 @@ import os
 import pytest
 import shapely
 
-import neomodel
-import neomodel.contrib.spatial_properties
-from neomodel.util import version_tag_to_integer
+import neomodantic
+import neomodantic.contrib.spatial_properties
+from neomodantic.util import version_tag_to_integer
 
 
 def check_and_skip_neo4j_least_version(required_least_neo4j_version, message):
@@ -99,18 +99,18 @@ def test_coord_constructor():
     )
 
     # Implicit cartesian point with coords
-    ground_truth_object = neomodel.contrib.spatial_properties.NeomodelPoint((0.0, 0.0))
-    new_point = neomodel.contrib.spatial_properties.NeomodelPoint((0.0, 0.0))
+    ground_truth_object = neomodantic.contrib.spatial_properties.NeomodelPoint((0.0, 0.0))
+    new_point = neomodantic.contrib.spatial_properties.NeomodelPoint((0.0, 0.0))
     basic_type_assertions(
         ground_truth_object,
         new_point,
         "Implicit 2d cartesian point instantiation",
     )
 
-    ground_truth_object = neomodel.contrib.spatial_properties.NeomodelPoint(
+    ground_truth_object = neomodantic.contrib.spatial_properties.NeomodelPoint(
         (0.0, 0.0, 0.0)
     )
-    new_point = neomodel.contrib.spatial_properties.NeomodelPoint((0.0, 0.0, 0.0))
+    new_point = neomodantic.contrib.spatial_properties.NeomodelPoint((0.0, 0.0, 0.0))
     basic_type_assertions(
         ground_truth_object,
         new_point,
@@ -118,10 +118,10 @@ def test_coord_constructor():
     )
 
     # Explicit geographical point with coords
-    ground_truth_object = neomodel.contrib.spatial_properties.NeomodelPoint(
+    ground_truth_object = neomodantic.contrib.spatial_properties.NeomodelPoint(
         (0.0, 0.0), crs="wgs-84"
     )
-    new_point = neomodel.contrib.spatial_properties.NeomodelPoint(
+    new_point = neomodantic.contrib.spatial_properties.NeomodelPoint(
         (0.0, 0.0), crs="wgs-84"
     )
     basic_type_assertions(
@@ -130,10 +130,10 @@ def test_coord_constructor():
         "Explicit 2d geographical point with tuple of coords instantiation",
     )
 
-    ground_truth_object = neomodel.contrib.spatial_properties.NeomodelPoint(
+    ground_truth_object = neomodantic.contrib.spatial_properties.NeomodelPoint(
         (0.0, 0.0, 0.0), crs="wgs-84-3d"
     )
-    new_point = neomodel.contrib.spatial_properties.NeomodelPoint(
+    new_point = neomodantic.contrib.spatial_properties.NeomodelPoint(
         (0.0, 0.0, 0.0), crs="wgs-84-3d"
     )
     basic_type_assertions(
@@ -143,20 +143,20 @@ def test_coord_constructor():
     )
 
     # Cartesian point with named arguments
-    ground_truth_object = neomodel.contrib.spatial_properties.NeomodelPoint(
+    ground_truth_object = neomodantic.contrib.spatial_properties.NeomodelPoint(
         x=0.0, y=0.0
     )
-    new_point = neomodel.contrib.spatial_properties.NeomodelPoint(x=0.0, y=0.0)
+    new_point = neomodantic.contrib.spatial_properties.NeomodelPoint(x=0.0, y=0.0)
     basic_type_assertions(
         ground_truth_object,
         new_point,
         "Cartesian 2d point with named arguments",
     )
 
-    ground_truth_object = neomodel.contrib.spatial_properties.NeomodelPoint(
+    ground_truth_object = neomodantic.contrib.spatial_properties.NeomodelPoint(
         x=0.0, y=0.0, z=0.0
     )
-    new_point = neomodel.contrib.spatial_properties.NeomodelPoint(x=0.0, y=0.0, z=0.0)
+    new_point = neomodantic.contrib.spatial_properties.NeomodelPoint(x=0.0, y=0.0, z=0.0)
     basic_type_assertions(
         ground_truth_object,
         new_point,
@@ -164,10 +164,10 @@ def test_coord_constructor():
     )
 
     # Geographical point with named arguments
-    ground_truth_object = neomodel.contrib.spatial_properties.NeomodelPoint(
+    ground_truth_object = neomodantic.contrib.spatial_properties.NeomodelPoint(
         longitude=0.0, latitude=0.0
     )
-    new_point = neomodel.contrib.spatial_properties.NeomodelPoint(
+    new_point = neomodantic.contrib.spatial_properties.NeomodelPoint(
         longitude=0.0, latitude=0.0
     )
     basic_type_assertions(
@@ -176,10 +176,10 @@ def test_coord_constructor():
         "Geographical 2d point with named arguments",
     )
 
-    ground_truth_object = neomodel.contrib.spatial_properties.NeomodelPoint(
+    ground_truth_object = neomodantic.contrib.spatial_properties.NeomodelPoint(
         longitude=0.0, latitude=0.0, height=0.0
     )
-    new_point = neomodel.contrib.spatial_properties.NeomodelPoint(
+    new_point = neomodantic.contrib.spatial_properties.NeomodelPoint(
         longitude=0.0, latitude=0.0, height=0.0
     )
     basic_type_assertions(
@@ -204,21 +204,21 @@ def test_copy_constructors():
     # Instantiate from Shapely point
 
     # Implicit cartesian from shapely point
-    ground_truth = neomodel.contrib.spatial_properties.NeomodelPoint(
+    ground_truth = neomodantic.contrib.spatial_properties.NeomodelPoint(
         (0.0, 0.0), crs="cartesian"
     )
     shapely_point = shapely.geometry.Point((0.0, 0.0))
-    new_point = neomodel.contrib.spatial_properties.NeomodelPoint(shapely_point)
+    new_point = neomodantic.contrib.spatial_properties.NeomodelPoint(shapely_point)
     basic_type_assertions(
         ground_truth, new_point, "Implicit cartesian by shapely Point"
     )
 
     # Explicit geographical by shapely point
-    ground_truth = neomodel.contrib.spatial_properties.NeomodelPoint(
+    ground_truth = neomodantic.contrib.spatial_properties.NeomodelPoint(
         (0.0, 0.0, 0.0), crs="wgs-84-3d"
     )
     shapely_point = shapely.geometry.Point((0.0, 0.0, 0.0))
-    new_point = neomodel.contrib.spatial_properties.NeomodelPoint(
+    new_point = neomodantic.contrib.spatial_properties.NeomodelPoint(
         shapely_point, crs="wgs-84-3d"
     )
     basic_type_assertions(
@@ -226,9 +226,9 @@ def test_copy_constructors():
     )
 
     # Copy constructor for NeomodelPoints
-    ground_truth = neomodel.contrib.spatial_properties.NeomodelPoint((0.0, 0.0))
-    other_neomodel_point = neomodel.contrib.spatial_properties.NeomodelPoint((0.0, 0.0))
-    new_point = neomodel.contrib.spatial_properties.NeomodelPoint(other_neomodel_point)
+    ground_truth = neomodantic.contrib.spatial_properties.NeomodelPoint((0.0, 0.0))
+    other_neomodel_point = neomodantic.contrib.spatial_properties.NeomodelPoint((0.0, 0.0))
+    new_point = neomodantic.contrib.spatial_properties.NeomodelPoint(other_neomodel_point)
     basic_type_assertions(ground_truth, new_point, "NeomodelPoint copy constructor")
 
 
@@ -246,13 +246,13 @@ def test_prohibited_constructor_forms():
 
     # Absurd CRS
     with pytest.raises(ValueError, match=r"Invalid CRS\(blue_hotel\)"):
-        _ = neomodel.contrib.spatial_properties.NeomodelPoint((0, 0), crs="blue_hotel")
+        _ = neomodantic.contrib.spatial_properties.NeomodelPoint((0, 0), crs="blue_hotel")
 
     # Absurd coord dimensionality
     with pytest.raises(
         ValueError,
     ):
-        _ = neomodel.contrib.spatial_properties.NeomodelPoint(
+        _ = neomodantic.contrib.spatial_properties.NeomodelPoint(
             (0, 0, 0, 0, 0, 0, 0), crs="cartesian"
         )
 
@@ -260,14 +260,14 @@ def test_prohibited_constructor_forms():
     with pytest.raises(
         TypeError,
     ):
-        _ = neomodel.contrib.spatial_properties.NeomodelPoint(
+        _ = neomodantic.contrib.spatial_properties.NeomodelPoint(
             "it don't mean a thing if it ain't got that swing",
             crs="cartesian",
         )
 
     # Trying to instantiate a point with any of BOTH x,y,z or longitude, latitude, height
     with pytest.raises(ValueError, match="Invalid instantiation via arguments"):
-        _ = neomodel.contrib.spatial_properties.NeomodelPoint(
+        _ = neomodantic.contrib.spatial_properties.NeomodelPoint(
             x=0.0,
             y=0.0,
             longitude=0.0,
@@ -278,7 +278,7 @@ def test_prohibited_constructor_forms():
 
     # Trying to instantiate a point with absolutely NO parameters
     with pytest.raises(ValueError, match="Invalid instantiation via no arguments"):
-        _ = neomodel.contrib.spatial_properties.NeomodelPoint()
+        _ = neomodantic.contrib.spatial_properties.NeomodelPoint()
 
 
 def test_property_accessors_depending_on_crs_shapely_lt_2():
@@ -303,7 +303,7 @@ def test_property_accessors_depending_on_crs_shapely_lt_2():
         pytest.skip("Shapely 2 is installed, skipping earlier version test")
 
     # Geometrical points only have x,y,z coordinates
-    new_point = neomodel.contrib.spatial_properties.NeomodelPoint(
+    new_point = neomodantic.contrib.spatial_properties.NeomodelPoint(
         (0.0, 0.0, 0.0), crs="cartesian-3d"
     )
     with pytest.raises(AttributeError, match=r'Invalid coordinate \("longitude"\)'):
@@ -314,7 +314,7 @@ def test_property_accessors_depending_on_crs_shapely_lt_2():
         new_point.height
 
     # Geographical points only have longitude, latitude, height coordinates
-    new_point = neomodel.contrib.spatial_properties.NeomodelPoint(
+    new_point = neomodantic.contrib.spatial_properties.NeomodelPoint(
         (0.0, 0.0, 0.0), crs="wgs-84-3d"
     )
     with pytest.raises(AttributeError, match=r'Invalid coordinate \("x"\)'):
@@ -346,7 +346,7 @@ def test_property_accessors_depending_on_crs_shapely_gte_2():
     if int("".join(__version__.split(".")[0:3])) < 200:
         pytest.skip("Shapely < 2.0.0 is installed, skipping test")
     # Geometrical points only have x,y,z coordinates
-    new_point = neomodel.contrib.spatial_properties.NeomodelPoint(
+    new_point = neomodantic.contrib.spatial_properties.NeomodelPoint(
         (0.0, 0.0, 0.0), crs="cartesian-3d"
     )
     with pytest.raises(TypeError, match=r'Invalid coordinate \("longitude"\)'):
@@ -357,7 +357,7 @@ def test_property_accessors_depending_on_crs_shapely_gte_2():
         new_point.height
 
     # Geographical points only have longitude, latitude, height coordinates
-    new_point = neomodel.contrib.spatial_properties.NeomodelPoint(
+    new_point = neomodantic.contrib.spatial_properties.NeomodelPoint(
         (0.0, 0.0, 0.0), crs="wgs-84-3d"
     )
     with pytest.raises(TypeError, match=r'Invalid coordinate \("x"\)'):
@@ -381,7 +381,7 @@ def test_property_accessors():
     )
 
     # Geometrical points
-    new_point = neomodel.contrib.spatial_properties.NeomodelPoint(
+    new_point = neomodantic.contrib.spatial_properties.NeomodelPoint(
         (0.0, 1.0, 2.0), crs="cartesian-3d"
     )
     assert new_point.x == 0.0, "Expected x coordinate to be 0.0"
@@ -389,7 +389,7 @@ def test_property_accessors():
     assert new_point.z == 2.0, "Expected z coordinate to be 2.0"
 
     # Geographical points
-    new_point = neomodel.contrib.spatial_properties.NeomodelPoint(
+    new_point = neomodantic.contrib.spatial_properties.NeomodelPoint(
         (0.0, 1.0, 2.0), crs="wgs-84-3d"
     )
     assert new_point.longitude == 0.0, "Expected longitude to be 0.0"

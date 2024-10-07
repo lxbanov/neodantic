@@ -2,7 +2,7 @@ from test._async_compat import mark_sync_test
 
 from pytest import raises
 
-from neomodel import (
+from neomodantic import (
     IntegerProperty,
     RelationshipFrom,
     RelationshipTo,
@@ -11,8 +11,8 @@ from neomodel import (
     UniqueIdProperty,
     config,
 )
-from neomodel._async_compat.util import Util
-from neomodel.exceptions import DeflateError, UniqueProperty
+from neomodantic._async_compat.util import Util
+from neomodantic.exceptions import DeflateError, UniqueProperty
 
 config.AUTO_INSTALL_LABELS = True
 

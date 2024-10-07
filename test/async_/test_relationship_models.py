@@ -4,7 +4,7 @@ from test._async_compat import mark_async_test
 import pytz
 from pytest import raises
 
-from neomodel import (
+from neomodantic import (
     AsyncRelationship,
     AsyncRelationshipTo,
     AsyncStructuredNode,
@@ -13,7 +13,7 @@ from neomodel import (
     DeflateError,
     StringProperty,
 )
-from neomodel._async_compat.util import AsyncUtil
+from neomodantic._async_compat.util import AsyncUtil
 
 HOOKS_CALLED = {"pre_save": 0, "post_save": 0}
 

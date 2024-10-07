@@ -14,7 +14,7 @@ from test._async_compat import mark_async_test
 
 import pytest
 
-from neomodel import (
+from neomodantic import (
     AsyncRelationshipTo,
     AsyncStructuredNode,
     AsyncStructuredRel,
@@ -26,7 +26,7 @@ from neomodel import (
     UniqueIdProperty,
     adb,
 )
-from neomodel.exceptions import NodeClassAlreadyDefined, NodeClassNotDefined
+from neomodantic.exceptions import NodeClassAlreadyDefined, NodeClassNotDefined
 
 try:
     basestring

@@ -2,7 +2,7 @@ from test._async_compat import mark_async_test
 
 from neo4j.exceptions import ClientError
 
-from neomodel import AsyncStructuredNode, StringProperty, adb
+from neomodantic import AsyncStructuredNode, StringProperty, adb
 
 
 class ConstraintAndIndex(AsyncStructuredNode):

@@ -4,8 +4,8 @@ import pytest
 from neo4j.exceptions import ClientError
 from pytest import raises
 
-from neomodel import adb
-from neomodel.exceptions import FeatureNotSupported
+from neomodantic import adb
+from neomodantic.exceptions import FeatureNotSupported
 
 
 @mark_async_test

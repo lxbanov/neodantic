@@ -7,8 +7,8 @@ sys.path.insert(0, os.path.abspath("../../"))
 
 import alabaster
 
-from neomodel import __author__, __package__
-from neomodel._version import __version__
+from neomodantic import __author__, __package__
+from neomodantic._version import __version__
 
 #
 # neomodel documentation build configuration file, created by
@@ -120,8 +120,8 @@ html_theme = "alabaster"
 html_theme_options = {
     "logo": "neomodel-148.png",
     #    'logo_align': 'left',
-    "github_user": "neo4j-contrib",
-    "github_repo": "neomodel",
+    "github_user": "lxbanov",
+    "github_repo": "neomodantic",
     # 'github_branch': 'master',
     "travis_button": False,
 }
@@ -199,7 +199,7 @@ html_show_sourcelink = False
 # html_file_suffix = None
 
 # Output file base name for HTML help builder.
-htmlhelp_basename = "neomodeldoc"
+htmlhelp_basename = "neodanticdoc"
 
 
 # -- Options for LaTeX output ---------------------------------------------
@@ -217,7 +217,7 @@ latex_elements = {
 # (source start file, target name, title,
 #  author, documentclass [howto, manual, or own class]).
 latex_documents = [
-    ("index", "neomodel.tex", "neomodel Documentation", __author__, "manual"),
+    ("index", "neomodantic.tex", "neomodantic Documentation", __author__, "manual"),
 ]
 
 # The name of an image file (relative to this directory) to place at the top of
@@ -245,7 +245,7 @@ latex_documents = [
 
 # One entry per manual page. List of tuples
 # (source start file, name, description, authors, manual section).
-man_pages = [("index", "neomodel", "neomodel documentation", [__author__], 1)]
+man_pages = [("index", "neomodantic", "neomodantic documentation", [__author__], 1)]
 
 # If true, show URL addresses after external links.
 # man_show_urls = False
@@ -259,11 +259,11 @@ man_pages = [("index", "neomodel", "neomodel documentation", [__author__], 1)]
 texinfo_documents = [
     (
         "index",
-        "neomodel",
-        "neomodel Documentation",
+        "neomodantic",
+        "neomodantic Documentation",
         __author__,
-        "neomodel",
-        " An Object Graph Mapper (OGM) for the neo4j graph database",
+        "neomodantic",
+        " An Object Graph Mapper (OGM) for the neo4j graph database with pydantic support ",
         "Miscellaneous",
     ),
 ]

@@ -3,7 +3,7 @@ from test._async_compat import mark_async_test
 
 from pytest import raises
 
-from neomodel import (
+from neomodantic import (
     INCOMING,
     ArrayProperty,
     AsyncRelationshipFrom,
@@ -16,14 +16,14 @@ from neomodel import (
     StringProperty,
     UniqueIdProperty,
 )
-from neomodel._async_compat.util import AsyncUtil
-from neomodel.async_.match import (
+from neomodantic._async_compat.util import AsyncUtil
+from neomodantic.async_.match import (
     AsyncNodeSet,
     AsyncQueryBuilder,
     AsyncTraversal,
     Optional,
 )
-from neomodel.exceptions import MultipleNodesReturned, RelationshipClassNotDefined
+from neomodantic.exceptions import MultipleNodesReturned, RelationshipClassNotDefined
 
 
 class SupplierRel(AsyncStructuredRel):

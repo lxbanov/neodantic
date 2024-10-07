@@ -2,7 +2,7 @@ from test._async_compat import mark_async_test
 
 from pytest import raises, skip
 
-from neomodel import (
+from neomodantic import (
     AsyncRelationshipTo,
     AsyncStructuredNode,
     AsyncStructuredRel,
@@ -12,7 +12,7 @@ from neomodel import (
     adb,
     config,
 )
-from neomodel.exceptions import (
+from neomodantic.exceptions import (
     NodeClassAlreadyDefined,
     NodeClassNotDefined,
     RelationshipClassRedefined,

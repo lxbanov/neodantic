@@ -1,6 +1,6 @@
 from test._async_compat import mark_async_test
 
-from neomodel import AliasProperty, AsyncStructuredNode, StringProperty
+from neomodantic import AliasProperty, AsyncStructuredNode, StringProperty
 
 
 class MagicProperty(AliasProperty):

@@ -2,7 +2,7 @@ from test._async_compat import mark_async_test
 
 import pytest
 
-from neomodel import (
+from neomodantic import (
     AsyncRelationshipTo,
     AsyncStructuredNode,
     AsyncStructuredRel,

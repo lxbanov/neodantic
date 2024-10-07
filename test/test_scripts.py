@@ -3,14 +3,14 @@ import subprocess
 
 import pytest
 
-from neomodel import (
+from neomodantic import (
     RelationshipTo,
     StringProperty,
     StructuredNode,
     StructuredRel,
     config,
 )
-from neomodel.sync_.core import db
+from neomodantic.sync_.core import db
 
 
 class ScriptsTestRel(StructuredRel):

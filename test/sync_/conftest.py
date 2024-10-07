@@ -2,7 +2,7 @@ import os
 import warnings
 from test._async_compat import mark_sync_session_auto_fixture
 
-from neomodel import config, db
+from neomodantic import config, db
 
 
 @mark_sync_session_auto_fixture

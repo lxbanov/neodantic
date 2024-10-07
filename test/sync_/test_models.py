@@ -3,7 +3,7 @@ from test._async_compat import mark_sync_test
 
 from pytest import raises
 
-from neomodel import (
+from neomodantic import (
     DateProperty,
     IntegerProperty,
     StringProperty,
@@ -11,7 +11,7 @@ from neomodel import (
     StructuredRel,
     db,
 )
-from neomodel.exceptions import RequiredProperty, UniqueProperty
+from neomodantic.exceptions import RequiredProperty, UniqueProperty
 
 
 class User(StructuredNode):

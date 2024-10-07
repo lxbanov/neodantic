@@ -3,7 +3,7 @@ from test._async_compat import mark_async_test
 
 from pytest import raises
 
-from neomodel import (
+from neomodantic import (
     AsyncStructuredNode,
     AsyncStructuredRel,
     DateProperty,
@@ -11,7 +11,7 @@ from neomodel import (
     StringProperty,
     adb,
 )
-from neomodel.exceptions import RequiredProperty, UniqueProperty
+from neomodantic.exceptions import RequiredProperty, UniqueProperty
 
 
 class User(AsyncStructuredNode):

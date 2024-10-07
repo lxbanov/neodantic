@@ -5,7 +5,7 @@ from unittest.mock import patch
 import pytest
 from neo4j.exceptions import ClientError
 
-from neomodel import (
+from neomodantic import (
     ArrayProperty,
     FloatProperty,
     FulltextIndex,
@@ -17,7 +17,7 @@ from neomodel import (
     VectorIndex,
     db,
 )
-from neomodel.exceptions import ConstraintValidationFailed, FeatureNotSupported
+from neomodantic.exceptions import ConstraintValidationFailed, FeatureNotSupported
 
 
 class NodeWithIndex(StructuredNode):

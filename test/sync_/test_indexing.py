@@ -3,8 +3,8 @@ from test._async_compat import mark_sync_test
 import pytest
 from pytest import raises
 
-from neomodel import IntegerProperty, StringProperty, StructuredNode, UniqueProperty, db
-from neomodel.exceptions import ConstraintValidationFailed
+from neomodantic import IntegerProperty, StringProperty, StructuredNode, UniqueProperty, db
+from neomodantic.exceptions import ConstraintValidationFailed
 
 
 class Human(StructuredNode):

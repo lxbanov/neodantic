@@ -2,7 +2,7 @@ from test._async_compat import mark_sync_test
 
 import pytest
 
-from neomodel import (
+from neomodantic import (
     IntegerProperty,
     RelationshipTo,
     StringProperty,

@@ -1,6 +1,6 @@
 from test._async_compat import mark_async_test
 
-from neomodel import (
+from neomodantic import (
     AsyncNeomodelPath,
     AsyncRelationshipTo,
     AsyncStructuredNode,

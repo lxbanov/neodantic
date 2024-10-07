@@ -5,7 +5,7 @@ from neo4j.api import Bookmarks
 from neo4j.exceptions import ClientError, TransactionError
 from pytest import raises
 
-from neomodel import StringProperty, StructuredNode, UniqueProperty, db
+from neomodantic import StringProperty, StructuredNode, UniqueProperty, db
 
 
 class APerson(StructuredNode):

@@ -1,7 +1,7 @@
 from test._async_compat import mark_async_test
 from test.async_.test_relationships import Country
 
-from neomodel import AsyncRelationshipTo, AsyncStructuredNode, StringProperty
+from neomodantic import AsyncRelationshipTo, AsyncStructuredNode, StringProperty
 
 
 class Cat(AsyncStructuredNode):

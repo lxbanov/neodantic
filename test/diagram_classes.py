@@ -1,4 +1,4 @@
-from neomodel import (
+from neomodantic import (
     ArrayProperty,
     AsyncRelationshipTo,
     AsyncStructuredNode,
@@ -14,7 +14,7 @@ from neomodel import (
     StructuredNode,
     UniqueIdProperty,
 )
-from neomodel.contrib.spatial_properties import PointProperty
+from neomodantic.contrib.spatial_properties import PointProperty
 
 
 class Document(StructuredNode):

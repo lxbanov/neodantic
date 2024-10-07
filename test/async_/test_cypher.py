@@ -6,8 +6,8 @@ from neo4j.exceptions import ClientError as CypherError
 from numpy import ndarray
 from pandas import DataFrame, Series
 
-from neomodel import AsyncStructuredNode, StringProperty, adb
-from neomodel._async_compat.util import AsyncUtil
+from neomodantic import AsyncStructuredNode, StringProperty, adb
+from neomodantic._async_compat.util import AsyncUtil
 
 
 class User2(AsyncStructuredNode):
@@ -86,14 +86,14 @@ async def test_pandas_not_installed(hide_available_pkg):
             UserWarning,
             match="The neomodel.integration.pandas module expects pandas to be installed",
         ):
-            from neomodel.integration.pandas import to_dataframe
+            from neomodantic.integration.pandas import to_dataframe
 
             _ = to_dataframe(await adb.cypher_query("MATCH (a) RETURN a.name AS name"))
 
 
 @mark_async_test
 async def test_pandas_integration():
-    from neomodel.integration.pandas import to_dataframe, to_series
+    from neomodantic.integration.pandas import to_dataframe, to_series
 
     jimla = await UserPandas(email="jimla@test.com", name="jimla").save()
     jimlo = await UserPandas(email="jimlo@test.com", name="jimlo").save()
@@ -144,7 +144,7 @@ async def test_numpy_not_installed(hide_available_pkg):
             UserWarning,
             match="The neomodel.integration.numpy module expects numpy to be installed",
         ):
-            from neomodel.integration.numpy import to_ndarray
+            from neomodantic.integration.numpy import to_ndarray
 
             _ = to_ndarray(
                 await adb.cypher_query("MATCH (a) RETURN a.name AS name ORDER BY name")
@@ -153,7 +153,7 @@ async def test_numpy_not_installed(hide_available_pkg):
 
 @mark_async_test
 async def test_numpy_integration():
-    from neomodel.integration.numpy import to_ndarray
+    from neomodantic.integration.numpy import to_ndarray
 
     jimly = await UserNP(email="jimly@test.com", name="jimly").save()
     jimlu = await UserNP(email="jimlu@test.com", name="jimlu").save()

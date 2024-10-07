@@ -2,7 +2,7 @@ from test._async_compat import mark_sync_test
 
 from neo4j.exceptions import ClientError
 
-from neomodel import StringProperty, StructuredNode, db
+from neomodantic import StringProperty, StructuredNode, db
 
 
 class ConstraintAndIndex(StructuredNode):

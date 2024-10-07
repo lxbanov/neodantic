@@ -1,6 +1,6 @@
 from test._async_compat import mark_async_test
 
-from neomodel import AsyncRelationshipTo, AsyncStructuredNode
+from neomodantic import AsyncRelationshipTo, AsyncStructuredNode
 
 
 class SomeModel(AsyncStructuredNode):

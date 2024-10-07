@@ -5,15 +5,15 @@ from neo4j import time
 from pytest import mark, raises
 from pytz import timezone
 
-from neomodel import Relationship, StructuredNode, StructuredRel, config, db
-from neomodel.contrib import SemiStructuredNode
-from neomodel.exceptions import (
+from neomodantic import Relationship, StructuredNode, StructuredRel, config, db
+from neomodantic.contrib import SemiStructuredNode
+from neomodantic.exceptions import (
     DeflateError,
     InflateError,
     RequiredProperty,
     UniqueProperty,
 )
-from neomodel.properties import (
+from neomodantic.properties import (
     AliasProperty,
     ArrayProperty,
     BooleanProperty,
@@ -30,7 +30,7 @@ from neomodel.properties import (
     UniqueIdProperty,
     validator,
 )
-from neomodel.util import get_graph_entity_properties
+from neomodantic.util import get_graph_entity_properties
 
 
 class FooBar:

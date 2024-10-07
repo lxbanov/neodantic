@@ -2,14 +2,14 @@ from test._async_compat import mark_async_test
 
 import pytest
 
-from neomodel import (
+from neomodantic import (
     DeflateConflict,
     InflateConflict,
     IntegerProperty,
     StringProperty,
     adb,
 )
-from neomodel.contrib import AsyncSemiStructuredNode
+from neomodantic.contrib import AsyncSemiStructuredNode
 
 
 class UserProf(AsyncSemiStructuredNode):

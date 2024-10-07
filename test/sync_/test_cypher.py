@@ -6,8 +6,8 @@ from neo4j.exceptions import ClientError as CypherError
 from numpy import ndarray
 from pandas import DataFrame, Series
 
-from neomodel import StringProperty, StructuredNode, db
-from neomodel._async_compat.util import Util
+from neomodantic import StringProperty, StructuredNode, db
+from neomodantic._async_compat.util import Util
 
 
 class User2(StructuredNode):
@@ -84,14 +84,14 @@ def test_pandas_not_installed(hide_available_pkg):
             UserWarning,
             match="The neomodel.integration.pandas module expects pandas to be installed",
         ):
-            from neomodel.integration.pandas import to_dataframe
+            from neomodantic.integration.pandas import to_dataframe
 
             _ = to_dataframe(db.cypher_query("MATCH (a) RETURN a.name AS name"))
 
 
 @mark_sync_test
 def test_pandas_integration():
-    from neomodel.integration.pandas import to_dataframe, to_series
+    from neomodantic.integration.pandas import to_dataframe, to_series
 
     jimla = UserPandas(email="jimla@test.com", name="jimla").save()
     jimlo = UserPandas(email="jimlo@test.com", name="jimlo").save()
@@ -140,7 +140,7 @@ def test_numpy_not_installed(hide_available_pkg):
             UserWarning,
             match="The neomodel.integration.numpy module expects numpy to be installed",
         ):
-            from neomodel.integration.numpy import to_ndarray
+            from neomodantic.integration.numpy import to_ndarray
 
             _ = to_ndarray(
                 db.cypher_query("MATCH (a) RETURN a.name AS name ORDER BY name")
@@ -149,7 +149,7 @@ def test_numpy_not_installed(hide_available_pkg):
 
 @mark_sync_test
 def test_numpy_integration():
-    from neomodel.integration.numpy import to_ndarray
+    from neomodantic.integration.numpy import to_ndarray
 
     jimly = UserNP(email="jimly@test.com", name="jimly").save()
     jimlu = UserNP(email="jimlu@test.com", name="jimlu").save()
